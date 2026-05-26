@@ -43,6 +43,9 @@ def is_excluded(path: Path) -> bool:
 def init_db(db_path: Path) -> sqlite3.Connection:
     db_path.parent.mkdir(parents=True, exist_ok=True)
     conn = sqlite3.connect(str(db_path))
+    # Acelera las inserciones masivas sin cambiar los datos resultantes.
+    conn.execute("PRAGMA journal_mode=WAL")
+    conn.execute("PRAGMA synchronous=NORMAL")
     c = conn.cursor()
     c.execute(
         """

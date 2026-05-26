@@ -301,26 +301,35 @@ document.querySelectorAll("nav.tabbar button").forEach((b) =>
   b.addEventListener("click", () => showView(b.dataset.view)));
 
 /* ---------- Library ---------- */
+let libCtrl = null;
+let libReq = 0;
 async function loadLibrary() {
+  const reqId = ++libReq;
+  if (libCtrl) libCtrl.abort();   // cancela una búsqueda anterior en vuelo
+  libCtrl = new AbortController();
   state.loading = true;
   renderListState();
   const url = `${API}/api/music/library?limit=${LIMIT}&offset=${state.offset}` +
     (state.q ? `&q=${encodeURIComponent(state.q)}` : "");
   try {
-    const res = await fetch(url);
+    const res = await fetch(url, { signal: libCtrl.signal });
     if (!res.ok) throw new Error("HTTP " + res.status);
     const data = await res.json();
+    if (reqId !== libReq) return;  // respuesta obsoleta: ganó una más reciente
     state.tracks = data.tracks || [];
     state.total = data.total || 0;
     state.indexed = data.indexed !== false;
     state.message = data.message || "";
   } catch (err) {
+    if (err.name === "AbortError" || reqId !== libReq) return;  // superada, ignorar
     state.tracks = []; state.total = 0; state.indexed = true;
     state.message = "Error al cargar la biblioteca: " + err.message;
   } finally {
-    state.loading = false;
-    renderList();
-    updateStat();
+    if (reqId === libReq) {
+      state.loading = false;
+      renderList();
+      updateStat();
+    }
   }
 }
 
