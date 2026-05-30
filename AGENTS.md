@@ -4,6 +4,14 @@
 > **Fuente de verdad del proyecto:** `CLAUDE.md`. **Cómo se trabaja:** `WORKFLOW.md`.
 > Aquí van solo las **reglas innegociables**, resumidas, para cualquier agente.
 
+## Reparto de roles
+
+- **Claude Code** es el agente principal (planifica, implementa, abre PRs). Tiene dos
+  subagentes de proyecto en `.claude/agents/`: **`musicbox-dev`** (implementa) y
+  **`musicbox-reviewer`** (revisa diffs; solo lectura).
+- **Codex** actúa como segunda opinión / revisor. Lee este `AGENTS.md` como directrices.
+- **Regla de oro:** una sola herramienta edita a la vez; **Git** es la única fuente de verdad.
+
 ## Reglas innegociables
 
 1. **Idioma.** Toda comunicación y la UI, en **castellano**. El código (variables,
@@ -47,3 +55,13 @@ python index_music.py                        # indexa la biblioteca
 - [ ] Sin dependencias nuevas no justificadas.
 - [ ] `ROADMAP.md` actualizado si procede.
 - [ ] PR en **draft** con resumen claro de qué cambia y por qué.
+
+## Reparto de roles
+
+- **Claude Code** (agente principal): planifica, implementa y abre PRs. Tiene dos
+  subagentes de proyecto en `.claude/agents/`: **`musicbox-dev`** (implementa cambios) y
+  **`musicbox-reviewer`** (revisa diffs, solo lectura).
+- **Codex** (segunda opinión): revisa diffs y propone alternativas puntuales; lee este
+  `AGENTS.md` como sus directrices.
+- **Regla:** una sola herramienta edita un archivo a la vez. **Git/GitHub** es la única
+  fuente de verdad.
