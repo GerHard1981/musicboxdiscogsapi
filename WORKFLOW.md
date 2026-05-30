@@ -28,17 +28,19 @@ Pagar la API por uso es un grifo abierto. Con una **suscripción plana** el cost
 y predecible. Claude Code y Codex **van incluidos** en sus suscripciones; no necesitas
 claves de API para usarlos.
 
-| Plan | Precio aprox.* | Incluye | Cuándo |
+| Plan | Precio/mes (USD)* | Incluye | Cuándo |
 |---|---|---|---|
-| **Claude Pro** | ~20 €/mes | Claude Code, límites moderados | **Empieza aquí** |
-| **Claude Max (5×)** | ~100 €/mes | Claude Code intensivo, mucho más margen | Si Pro se te queda corto |
-| **ChatGPT Plus** | ~20 €/mes | Codex incluido | Para la "segunda opinión" |
+| **Claude Pro** | 20 $ | Claude Code (límites moderados) | **Empieza aquí** |
+| **Claude Max 5×** | 100 $ | Claude Code con 5× más uso | Si Pro se te queda corto |
+| **Claude Max 20×** | 200 $ | Claude Code con 20× más uso | Uso muy intensivo |
+| **ChatGPT Plus** | 20 $ | Codex incluido (~30–150 mensajes/5 h) | Segunda opinión |
 
-\* *Verifica el precio actual en las webs oficiales; las cifras cambian.*
+\* *Precios verificados en fuentes oficiales (mayo 2026). En Europa el importe en € es
+similar (+ IVA). El plan **gratuito** de Claude NO incluye Claude Code.*
 
 **Recomendación para tu caso (1 desarrollador, proyecto Python + web):**
-empieza con **Claude Pro + ChatGPT Plus (~40 €/mes)**. Si trabajas muchas horas al día
-y chocas con los límites de Claude Code, sube a **Claude Max + ChatGPT Plus (~120 €/mes)**.
+empieza con **Claude Pro + ChatGPT Plus (40 $/mes)**. Si trabajas muchas horas al día
+y chocas con los límites de Claude Code, sube a **Claude Max 5× + ChatGPT Plus (120 $/mes)**.
 Cualquiera de las dos opciones es una fracción de lo que sangra la API por tokens.
 
 > ❗ Si ahora mismo estás usando una **API key** (de Anthropic u OpenAI) con pago por uso,
@@ -66,26 +68,30 @@ tocando los mismos ficheros a la vez = conflictos y dinero tirado.
 
 ## 3. Instalación del entorno (Windows, paso a paso)
 
-1. **Node.js LTS** → https://nodejs.org (necesario para los CLI de Claude y Codex).
+1. **Node.js 18 o superior** → https://nodejs.org (necesario para los CLI de Claude y Codex).
 2. **Git** → https://git-scm.com . Tras instalar, en una terminal:
    ```powershell
    git config --global user.name "Tu Nombre"
    git config --global user.email "segunmercader.g@gmail.com"
    ```
 3. **VS Code** → https://code.visualstudio.com
-4. **Claude Code**:
-   ```powershell
-   npm install -g @anthropic-ai/claude-code
-   claude            # ábrelo
-   /login            # entra con tu cuenta Pro/Max (NO con API key)
-   ```
-   *(Alternativa: instala la extensión "Claude Code" desde el Marketplace de VS Code.)*
-5. **Codex**:
+4. **Claude Code** (en Windows, de lo más fácil a lo más técnico):
+   - **App de escritorio con interfaz gráfica (sin terminal)** — la vía más sencilla:
+     descárgala desde https://claude.com/download
+   - **O por terminal (PowerShell)** — instalador nativo recomendado:
+     ```powershell
+     irm https://claude.ai/install.ps1 | iex
+     ```
+     Alternativas: `npm install -g @anthropic-ai/claude-code` o `winget install Anthropic.ClaudeCode`.
+   - **Inicia sesión**: ejecuta `claude`, se abre el navegador y entras con tu cuenta
+     **Pro/Max** (no necesitas API key). Comprueba con `claude --version` y `claude doctor`.
+   - *(También hay extensión "Claude Code" en el Marketplace de VS Code.)*
+5. **Codex** (requiere Node 18+):
    ```powershell
    npm install -g @openai/codex
-   codex             # entra con tu cuenta ChatGPT Plus
+   codex             # inicia sesión con tu cuenta ChatGPT Plus
    ```
-   *(Alternativa: extensión de OpenAI / GitHub Copilot en VS Code.)*
+   *(El paquete correcto es `@openai/codex`. Alternativa: extensión de OpenAI / Copilot en VS Code.)*
 6. **Clona el repo y ábrelo**:
    ```powershell
    git clone https://github.com/GerHard1981/musicboxdiscogsapi.git
